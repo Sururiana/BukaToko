@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.sururiana.bukatoko.App;
 import com.sururiana.bukatoko.R;
 import com.sururiana.bukatoko.adapter.CartAdapter;
+import com.sururiana.bukatoko.data.Constant;
 import com.sururiana.bukatoko.data.model.Cart;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        cartList.clear();
         cartList.addAll(App.sqLiteHelper.myCart());
 
         txtPriceTotal = findViewById(R.id.txtPriceTotal);
@@ -58,5 +60,14 @@ public class CartActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp(){
         finish();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (Constant.SHOP_NOW){
+            startActivity(new Intent(this, OngkirActivity.class));
+            Constant.SHOP_NOW = false;
+        }
     }
 }

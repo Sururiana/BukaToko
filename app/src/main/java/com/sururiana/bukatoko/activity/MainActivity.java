@@ -215,7 +215,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_notif) {
             Toast.makeText(getApplicationContext(), "Notif", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_trans) {
-            Toast.makeText(getApplicationContext(), "Trans", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "Trans", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this,TransActivity.class));
         } else if (id == R.id.nav_profile) {
 //            Toast.makeText(getApplicationContext(), "Profile", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this,ProfileActivity.class));

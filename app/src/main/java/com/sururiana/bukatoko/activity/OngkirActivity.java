@@ -81,6 +81,19 @@ public class OngkirActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.btnTrans) void clickTrans(){
+        startActivity(new Intent(this,TransActivity.class));
+        finish();
+    }
+
+    @OnClick(R.id.txtDismiss) void clickDismiss(){
+        finish();
+    }
+
+    @OnClick(R.id.txtCancel) void clickCancel(){
+        finish();
+    }
+
     @OnClick(R.id.edtDestination) void clickDestination(){
         startActivity(new Intent(this,CityActivity.class));
     }

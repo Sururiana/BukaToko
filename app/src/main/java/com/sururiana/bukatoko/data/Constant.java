@@ -8,4 +8,6 @@ public class Constant {
     public static String DESTINATION = "";
     public static String DESTINATION_NAME = "";
 
+    public static boolean SHOP_NOW = false;
+
 }

@@ -7,18 +7,17 @@ import android.os.Bundle;
 
 import com.sururiana.bukatoko.R;
 import com.sururiana.bukatoko.adapter.TabAdapter;
-import com.sururiana.bukatoko.fragment.auth.SigninFragment;
-import com.sururiana.bukatoko.fragment.auth.SignupFragment;
+import com.sururiana.bukatoko.fragment.trans.PaidFragment;
+import com.sururiana.bukatoko.fragment.trans.UnpaidFragment;
 
-public class SignupActivity extends AppCompatActivity {
-
-    public static TabLayout tabLayout;
+public class TransActivity extends AppCompatActivity {
+    TabLayout tabLayout;
     ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_trans);
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
@@ -26,21 +25,21 @@ public class SignupActivity extends AppCompatActivity {
         addTab(viewPager);
         tabLayout.setupWithViewPager(viewPager);
 
-        getSupportActionBar().setTitle("Pengguna Baru");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Pembelian");
+
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
+    public boolean onSupportNavigateUp(){
         finish();
-        return true;
+        return super.onSupportNavigateUp();
     }
 
     private void addTab(ViewPager viewPager){
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SignupFragment(),"Daftar");
-        adapter.addFragment(new SigninFragment(),"Masuk");
+        adapter.addFragment(new UnpaidFragment(),"Tertunda");
+        adapter.addFragment(new PaidFragment(),"Di Proses");
         viewPager.setAdapter(adapter);
-
     }
 }

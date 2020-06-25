@@ -1,5 +1,6 @@
 package com.sururiana.bukatoko.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.glide.slider.library.SliderTypes.DefaultSliderView;
 import com.glide.slider.library.Tricks.ViewPagerEx;
 import com.sururiana.bukatoko.App;
 import com.sururiana.bukatoko.R;
+import com.sururiana.bukatoko.data.Constant;
 import com.sururiana.bukatoko.data.model.Detail;
 import com.sururiana.bukatoko.data.retrofit.Api;
 import com.sururiana.bukatoko.data.retrofit.ApiInterface;
@@ -61,15 +63,7 @@ public class DetailActivity extends AppCompatActivity implements BaseSliderView.
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (App.sqLiteHelper.checkExists(bundle.getInt("PRODUCT_ID")) == 0){
-
-                    Long cart_id = App.sqLiteHelper.addToCart(bundle.getInt("PRODUCT_ID"), txtName.getText().toString(),
-                            bundle.getString("PRODUCT_IMAGE"), detailPrice);
-
-                    Log.e("_log_cartId", String.valueOf(cart_id));
-
-                }
+                addToCart();
                 new CartDialog().showChartDialog(DetailActivity.this);
             }
         });
@@ -78,7 +72,10 @@ public class DetailActivity extends AppCompatActivity implements BaseSliderView.
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                addToCart();
+                Constant.SHOP_NOW = true;
+                startActivity(new Intent(DetailActivity.this, CartActivity.class));
+                finish();
             }
         });
 
@@ -92,6 +89,17 @@ public class DetailActivity extends AppCompatActivity implements BaseSliderView.
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
+    }
+
+    private void addToCart(){
+        if (App.sqLiteHelper.checkExists(bundle.getInt("PRODUCT_ID")) == 0){
+
+            Long cart_id = App.sqLiteHelper.addToCart(bundle.getInt("PRODUCT_ID"), txtName.getText().toString(),
+                    bundle.getString("PRODUCT_IMAGE"), detailPrice);
+
+            Log.e("_log_cartId", String.valueOf(cart_id));
+
+        }
     }
 
     private void getDetails() {
