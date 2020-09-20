@@ -105,4 +105,12 @@
 
     <string name="no_data">Data Tidak Di Temukan</string>
 
+    <string name="visi">Visi sejati production Menjadikan Sejati sebagai produsen olahan kayu berupa ukiran kaligrafi dan mebel dengan kualitas dan pelayanan terbaik di bidang nya \n \nMisi sejati production adalah \n1. menyediakan berbagai variasi produk ukiran kayu\n2. Memberikan kualitas pelayanan yang sangat baik\n3. Memberikan inovasi dan peningkatan kualitas pelayanan demi memaksimalkan kepuasan pelanggan</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="apiWa"><![CDATA[https://api.whatsapp.com/send?phone=6283833229285&text=Assalamualaikum%20saya%20ingin%20menanyakan%20produk%20Sejati]]></string>
+    <string name="alamat">Jalan Gatot Subroto, No 2, RT 02 / RW 04  Gadingrejo Kota Pasuruan, Jawa Timur 67156</string>
+    <string name="info_dp">DP di terima. Mohon kirimkan bukti pelunasan maksimal 15 hari</string>
+    <string name="info_pend">Pembayaran di terima. Mohon tunggu pengiriman barang</string>
+    <string name="info_pross">Barang dikirim</string>
+
 </resources>

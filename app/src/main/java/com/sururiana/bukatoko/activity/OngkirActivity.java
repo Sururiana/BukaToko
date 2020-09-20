@@ -42,6 +42,7 @@ public class OngkirActivity extends AppCompatActivity {
 
     @BindView(R.id.edtDestination) EditText edtDestination;
     @BindView(R.id.edtAddress) EditText edtAddress;
+    @BindView(R.id.edtPhone) EditText edtPhone;
 
     @BindView(R.id.spnService) Spinner spnService;
     @BindView(R.id.txtOngkir) TextView txtOngkir;
@@ -68,6 +69,7 @@ public class OngkirActivity extends AppCompatActivity {
 
             TransPost transPost = new TransPost();
             transPost.setUser_id( Integer.parseInt(App.prefsManager.getUserDetail().get(PrefsManager.SESS_ID)) );
+            transPost.setPhone( edtPhone.getText().toString()); ;
             transPost.setDestination( edtDestination.getText().toString() + " - " + edtAddress.getText().toString()) ;
             transPost.setOngkir(ongkirValue);
             transPost.setGrandtotal(CartActivity.adapter.getTotal() + ongkirValue);
@@ -209,12 +211,15 @@ public class OngkirActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(),"Transaksi berhasil di buat", Toast.LENGTH_SHORT).show();
                     App.sqLiteHelper.clearTable();
+                } else {
+                    Toast.makeText(getApplicationContext(),"Stock habis, Mohon hapus dari keranjang",Toast.LENGTH_SHORT).show();
+                    linearSave.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<TransPost> call, Throwable t) {
-
             }
         });
     }

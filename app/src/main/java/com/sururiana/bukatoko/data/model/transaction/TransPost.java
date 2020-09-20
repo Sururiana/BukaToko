@@ -8,6 +8,8 @@ public class TransPost {
 
     @SerializedName("user_id")
     private int user_id;
+    @SerializedName("phone")
+    private String phone;
     @SerializedName("destination")
     private String destination;
     @SerializedName("ongkir")
@@ -32,6 +34,14 @@ public class TransPost {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getOngkir() {

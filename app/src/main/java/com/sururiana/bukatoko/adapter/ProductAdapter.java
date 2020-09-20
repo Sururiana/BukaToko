@@ -19,6 +19,7 @@ import com.sururiana.bukatoko.activity.MainActivity;
 import com.sururiana.bukatoko.data.model.Product;
 import com.sururiana.bukatoko.utils.Converter;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
@@ -43,11 +44,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         viewHolder.txtName.setText( products.get(i).getProduct() );
-
 //        int price = products.get(i).getPrice();
-
-
-        viewHolder.txtPrice.setText( "Rp." + Converter.rupiah(products.get(i).getPrice()));
+        viewHolder.txtPrice.setText( "Rp " + Converter.rupiah(products.get(i).getPrice()));
+        if (products.get(i).getStock() <= 0 ){
+            viewHolder.txtHot.setVisibility(View.GONE);
+        } else if (products.get(i).getStock() < 5 ) {
+            viewHolder.txtHot.setVisibility(View.VISIBLE);
+        }
 
         RequestOptions options = new RequestOptions().centerCrop().placeholder(R.drawable.ic_load).error(R.drawable.ic_close)
                 .priority(Priority.HIGH);
@@ -74,13 +77,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgProd;
-        TextView txtPrice, txtName;
+        TextView txtPrice, txtName, txtHot;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imgProd = itemView.findViewById(R.id.imgProd);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             txtName = itemView.findViewById(R.id.txtName);
+            txtHot = itemView.findViewById(R.id.txtHot);
         }
     }
 }

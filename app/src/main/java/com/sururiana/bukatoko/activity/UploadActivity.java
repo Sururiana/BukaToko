@@ -131,7 +131,7 @@ public class UploadActivity extends AppCompatActivity {
     private void uploadImage(File fileImage){
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"),fileImage);
 
-        MultipartBody.Part image = MultipartBody.Part.createFormData("bukti",fileImage.getName(), requestFile);
+        MultipartBody.Part image = MultipartBody.Part.createFormData("foto",fileImage.getName(), requestFile);
 
         ApiInterface apiInterface = Api.getUrl().create(ApiInterface.class);
         Call<Upload> call = apiInterface.uploadImage(bundle.getString("TRANSACTION_CODE"), image);

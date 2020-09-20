@@ -34,4 +34,13 @@
         </menu>
     </item>
 
+    <item android:title="Profile Usaha">
+        <menu>
+            <item
+                android:id="@+id/nav_profusaha"
+                android:icon="@drawable/ic_menu_person"
+                android:title="Lihat Profil Usaha" />
+        </menu>
+    </item>
+
 </menu>

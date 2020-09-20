@@ -1,5 +1,6 @@
 package com.sururiana.bukatoko.data.retrofit;
 
+import com.sururiana.bukatoko.data.model.Notification;
 import com.sururiana.bukatoko.data.model.TransDetail;
 import com.sururiana.bukatoko.data.model.Upload;
 import com.sururiana.bukatoko.data.model.rajaongkir.City;
@@ -72,6 +73,9 @@ public interface ApiInterface {
     Call<TransUser> getTransPaid (@Path("id") String id);
 
 
+    @GET("notification/{id}")
+    Call<Notification> myNotifications(@Path("id") String user_id);
+
     @Multipart
     @POST("upload/{code}")
     Call<Upload> uploadImage (
@@ -79,6 +83,17 @@ public interface ApiInterface {
             @Part MultipartBody.Part file
     );
 
+    @Multipart
+    @POST("dpayment/{code}")
+    Call<Upload> uploadDpImage (
+            @Path("code") String code,
+            @Part MultipartBody.Part file
+    );
+
+    @GET("send/{code}")
+    Call<Upload> send (
+            @Path("code") String code
+    );
 
     // Raja ongkir endpoint
 

@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="@string/lorem_ipsum"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -26,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lorem_ipsum"
-                android:textStyle="italic"/>
+                android:layout_marginTop="15dp"/>
 
             <Button
                 android:id="@+id/btnAction"
@@ -40,8 +41,27 @@
                 android:textSize="12sp"
                 android:textAllCaps="false"/>
 
+            <TextView
+                android:id="@+id/btnDp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:text="Bayar DP"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="25dp"
+                android:layout_below="@+id/btnAction"/>
 
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 

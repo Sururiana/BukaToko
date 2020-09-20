@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,7 +36,7 @@ import retrofit2.Response;
 public class DetailActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener,
         ViewPagerEx.OnPageChangeListener {
 
-    TextView txtName, txtPrice, txtDescription;
+    TextView txtName, txtPrice, txtDescription, txtStock;
 
     SliderLayout sliderLayout;
     ImageButton btnAddCart;
@@ -54,6 +55,7 @@ public class DetailActivity extends AppCompatActivity implements BaseSliderView.
         Log.e("_LogImgIntent", bundle.getString("PRODUCT_IMAGE"));
 
         txtName = findViewById(R.id.txtName);
+        txtStock = findViewById(R.id.txtStock);
         txtPrice = findViewById(R.id.txtPrice);
         txtDescription = findViewById(R.id.txtDescription);
         btnAddCart = findViewById(R.id.btnAddCart);
@@ -111,12 +113,18 @@ public class DetailActivity extends AppCompatActivity implements BaseSliderView.
 
                 Detail.Data data = response.body().getData();
                 txtName.setText(data.getProduct());
-
+                if (data.getStock() <= 0){
+                    txtStock.setText("Barang habis");
+                    btnAddCart.setVisibility(View.GONE);
+                    btnCheckout.setVisibility(View.GONE);
+                } else {
+                    txtStock.setText("Barang tersisa "+ data.getStock());
+                }
                 detailPrice = data.getPrice();
-                txtPrice.setText(Converter.rupiah(data.getPrice()));
+                txtPrice.setText("Rp " + Converter.rupiah(data.getPrice()));
 
                 if (data.getDescription() != null){
-                    txtDescription.setText(data.getDescription());
+                    txtDescription.setText(Html.fromHtml(data.getDescription()));
                 }
 
                 Detail detail = response.body();

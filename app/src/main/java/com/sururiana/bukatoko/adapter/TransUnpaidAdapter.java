@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.sururiana.bukatoko.R;
 import com.sururiana.bukatoko.activity.TransDetActivity;
 import com.sururiana.bukatoko.activity.UploadActivity;
+import com.sururiana.bukatoko.activity.UploaddpActivity;
 import com.sururiana.bukatoko.data.model.transaction.TransUser;
 
 import java.util.List;
@@ -40,15 +41,36 @@ public class TransUnpaidAdapter extends RecyclerView.Adapter<TransUnpaidAdapter.
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         final TransUser.Data data = transUnpaid.get(i);
+        if (data.getStatus_transaction().equals("waiting")){
+            viewHolder.txtInfo.setVisibility(View.GONE);
+        }
 
         if (data.getStatus_transaction().equals("pending")){
+            viewHolder.txtInfo.setText(context.getString(R.string.info_pend));
             viewHolder.btnAction.setVisibility(View.GONE);
+            viewHolder.btnDp.setVisibility(View.GONE);
         } else {
             viewHolder.btnAction.setText("Upload Bukti Pembayaran");
             viewHolder.btnAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, UploadActivity.class);
+                    intent.putExtra("TRANSACTION_CODE", data.getTransaction_code());
+                    context.startActivity(intent);
+                }
+            });
+        }
+
+
+
+        if (data.getStatus_transaction().equals("downpay")){
+            viewHolder.btnDp.setVisibility(View.GONE);
+            viewHolder.txtInfo.setText(context.getString(R.string.info_dp));
+        } else {
+            viewHolder.btnDp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, UploaddpActivity.class);
                     intent.putExtra("TRANSACTION_CODE", data.getTransaction_code());
                     context.startActivity(intent);
                 }
@@ -75,7 +97,7 @@ public class TransUnpaidAdapter extends RecyclerView.Adapter<TransUnpaidAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtTitle, txtStatus;
+        TextView txtTitle, txtStatus, btnDp, txtInfo;
         Button btnAction;
         CardView cardView;
         public ViewHolder(@NonNull View itemView) {
@@ -83,7 +105,9 @@ public class TransUnpaidAdapter extends RecyclerView.Adapter<TransUnpaidAdapter.
 
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtStatus = itemView.findViewById(R.id.txtStatus);
+            txtInfo = itemView.findViewById(R.id.txtInfo);
             btnAction = itemView.findViewById(R.id.btnAction);
+            btnDp = itemView.findViewById(R.id.btnDp);
             cardView = itemView.findViewById(R.id.cardView);
 
         }

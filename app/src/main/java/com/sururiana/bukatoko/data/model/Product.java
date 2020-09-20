@@ -3,6 +3,7 @@ package com.sururiana.bukatoko.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Product {
@@ -13,7 +14,7 @@ public class Product {
         return products;
     }
 
-    public class Data {
+    public static class Data {
         @SerializedName("id")
         private int id;
         @SerializedName("product")
@@ -28,6 +29,12 @@ public class Product {
         private String image;
 
 
+        public static final Comparator<Product.Data> BY_STOCK = new Comparator<Data>() {
+            @Override
+            public int compare(Data data, Data t1) {
+                return + Integer.valueOf(data.stock).compareTo(Integer.valueOf(t1.stock));
+            }
+        };
 
         public int getId() {
             return id;

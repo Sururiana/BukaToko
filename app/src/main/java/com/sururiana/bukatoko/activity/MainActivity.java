@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -24,11 +25,14 @@ import com.sururiana.bukatoko.App;
 import com.sururiana.bukatoko.R;
 import com.sururiana.bukatoko.adapter.ProductAdapter;
 import com.sururiana.bukatoko.data.model.Product;
+import com.sururiana.bukatoko.data.model.User;
 import com.sururiana.bukatoko.data.retrofit.Api;
 import com.sururiana.bukatoko.data.retrofit.ApiInterface;
 import com.sururiana.bukatoko.dialog.LoginDialog;
 import com.sururiana.bukatoko.utils.AuthState;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,7 +41,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    MaterialSearchView searchView;
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onResponse(Call<Product> call, Response<Product> response) {
                 Product product = response.body();
                 List<Product.Data> products = product.getProducts();
+                Collections.sort(products, Product.Data.BY_STOCK);
 
                 Log.e("_logSizeProducts", String.valueOf(products.size()));
 
@@ -82,45 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        searchView = findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //Do some magic
-                Toast.makeText(getApplicationContext(), query,
-                        Toast.LENGTH_LONG).show();
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Do some magic
-                return false;
-            }
-        });
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -132,8 +97,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         menu = navigationView.getMenu();
-
-
 
         recyclerView = findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
@@ -178,8 +141,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.custom_menu, menu);
 
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
+//        MenuItem item = menu.findItem(R.id.action_search);
+//        searchView.setMenuItem(item);
 
         return true;
     }
@@ -213,18 +176,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_login) {
             startActivity(new Intent(MainActivity.this,SignupActivity.class));
         } else if (id == R.id.nav_notif) {
-            Toast.makeText(getApplicationContext(), "Notif", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this,NotifActivity.class));
         } else if (id == R.id.nav_trans) {
-//            Toast.makeText(getApplicationContext(), "Trans", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this,TransActivity.class));
         } else if (id == R.id.nav_profile) {
-//            Toast.makeText(getApplicationContext(), "Profile", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this,ProfileActivity.class));
         } else if (id == R.id.nav_logout) {
-//            Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
-//            startActivity(new Intent(MainActivity.this, SignupActivity.class));
             App.prefsManager.logoutUser();
             AuthState.isLoggedOut(menu);
+        } else if (id == R.id.nav_profusaha){
+            startActivity(new Intent(MainActivity.this,ComprofActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

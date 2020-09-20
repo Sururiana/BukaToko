@@ -2,13 +2,26 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="250dp"
+    android:padding="3dp">
     <ImageView
         android:id="@+id/imgProd"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="centerCrop"
         android:src="@drawable/no_profile"/>
+    <TextView
+        android:id="@+id/txtHot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paling Laku"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:padding="5dp"
+        android:background="@color/colorPrimary"
+        android:visibility="gone"
+        />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
